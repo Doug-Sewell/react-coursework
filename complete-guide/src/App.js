@@ -18,26 +18,15 @@ class App extends Component {
         name: "Gannondorf",
         age: 48
       }
-    ]
+    ],
+    showPersons: true
   }
 
-  switchNameHandler = (newName) => {
-    this.setState({
-      persons: [
-        {
-          name: newName,
-          age: 47
-        },
-        {
-          name: "Peach",
-          age: 45
-        },
-        {
-          name: "Luigi",
-          age: 40
-        }
-      ]
-    });
+  deletePerson = (index) => {
+   // const persons = this.state.persons; <- BAD way of doing this as it's a referenec pointer and you are modifying the oringal data. You want to create a copy of the array instead of pointing it to the same reference point as the original data.
+   const persons = [...this.state.persons];
+    persons.splice(index,1);
+    this.setState({persons:persons});
   }
 
   typedHandleChange = (event) => {
@@ -59,6 +48,11 @@ class App extends Component {
     });
   }
 
+  showPersons = () => {
+    const showPersons = this.state.showPersons;
+    this.setState({ showPersons: !showPersons });
+  }
+
   render() {
 
     const style = {
@@ -69,27 +63,29 @@ class App extends Component {
       cursor: 'pointer'
     }
 
+    let personComponents = null;
+
+    if (this.state.showPersons) {
+
+      personComponents = (
+        <div>
+          {this.state.persons.map((person,index) => {
+            return <Person
+            name={person.name}
+            age={person.age}
+            click={this.deletePerson.bind(this,index)}/>
+          })}
+        </div>
+      )
+    }
+
     return (
       <div className="App">
         <h1>React application</h1>
         <button
           style={style}
-          onClick={this.switchNameHandler.bind(this, 'Mario')}>Switch name</button>
-
-        <Person
-          click={this.switchNameHandler}
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-        />
-        <Person
-          click={this.switchNameHandler.bind(this, 'Super Mario')}
-          change={this.typedHandleChange}
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}>My Hobbies: Horseback riding and Ocarina playing.</Person>
-        <Person
-          click={this.switchNameHandler}
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age} />
+          onClick={this.showPersons}>Switch name</button>
+        {personComponents}
       </div>
     );
   }
