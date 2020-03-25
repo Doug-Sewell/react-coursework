@@ -7,14 +7,17 @@ class App extends Component {
   state = {
     persons: [
       {
+        id:"Triforce of Courage",
         name: "Link",
         age: 16
       },
       {
+        id:"Triface of Wisdom",
         name: "Zelda",
         age: 17
       },
       {
+        id:"Triforce of Power",
         name: "Gannondorf",
         age: 48
       }
@@ -29,23 +32,11 @@ class App extends Component {
     this.setState({persons:persons});
   }
 
-  typedHandleChange = (event) => {
-    this.setState({
-      persons: [
-        {
-          name: "Mario",
-          age: 47
-        },
-        {
-          name: event.target.value,
-          age: 45
-        },
-        {
-          name: "Luigi",
-          age: 40
-        }
-      ]
-    });
+  typedHandleChange = (event, id) => {
+    const persons = [...this.state.persons];//Creates a copy of the data.
+    const personID = persons.findIndex(p => p.id == id); //Finds the index of the element being updated in the state.
+    persons[personID].name = event.target.value; //Updates the copied state's data.
+    this.setState({persons}); //Replaces the old state with the new state. Using ES6 since persons is the name of the key and the value is the same name since it's the variable here.
   }
 
   showPersons = () => {
@@ -73,6 +64,8 @@ class App extends Component {
             return <Person
             name={person.name}
             age={person.age}
+            key={person.id}
+            change={(event) => this.typedHandleChange(event,person.id)}
             click={this.deletePerson.bind(this,index)}/>
           })}
         </div>
