@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.module.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -34,7 +34,7 @@ class App extends Component {
 
   typedHandleChange = (event, id) => {
     const persons = [...this.state.persons];//Creates a copy of the data.
-    const personID = persons.findIndex(p => p.id == id); //Finds the index of the element being updated in the state.
+    const personID = persons.findIndex(p => p.id === id); //Finds the index of the element being updated in the state.
     persons[personID].name = event.target.value; //Updates the copied state's data.
     this.setState({persons}); //Replaces the old state with the new state. Using ES6 since persons is the name of the key and the value is the same name since it's the variable here.
   }
@@ -45,19 +45,12 @@ class App extends Component {
   }
 
   render() {
-
-    const style = {
-      backgroundColor: 'red',
-      color:'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    }
-
     let personComponents = null;
 
-    if (this.state.showPersons) {
+    let btnClass = '';
+
+
+    if (!this.state.showPersons) {
 
       personComponents = (
         <div>
@@ -70,16 +63,31 @@ class App extends Component {
             click={this.deletePerson.bind(this,index)}/>
           })}
         </div>
-      )
-      style.backgroundColor = 'green';
+      );
+
+      btnClass = classes.Red;
+    
     }
 
+    const assignedClasses = [];
+
+    if(this.state.persons.length <=2) {
+      assignedClasses.push(classes.red);
+    }
+
+    if(this.state.persons.length <=1) {
+      assignedClasses.push(classes.bold)
+    }
+
+
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>React application</h1>
+        <p className={assignedClasses.join(' ')}>Some dynamic text!!!!</p>
         <button
-          style={style}
-          onClick={this.showPersons}>Switch name</button>
+          class={btnClass}
+          alt={this.state.showPersons}
+          onClick={this.showPersons}>Toggle names</button>
         {personComponents}
       </div>
     );
