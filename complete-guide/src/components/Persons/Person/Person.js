@@ -11,7 +11,7 @@ const Person = (props) => {
             <input
                 onChange={props.change}
                 type="text"
-                value={props.name}></input>
+                value={props.name} />
         </div>
     );
 }
