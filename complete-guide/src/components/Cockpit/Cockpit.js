@@ -18,8 +18,6 @@ const cockpit = (props) => {
       assignedClasses.push(classes.bold)
     }
 
-
-
     return (
         <div className = {classes.Cockpit}>
             <h1>React application</h1>
