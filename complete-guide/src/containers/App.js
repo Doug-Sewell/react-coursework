@@ -4,27 +4,41 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
-
-  state = {
-    persons: [
-      {
-        id: "Triforce of Courage",
-        name: "Link",
-        age: 16
-      },
-      {
-        id: "Triface of Wisdom",
-        name: "Zelda",
-        age: 17
-      },
-      {
-        id: "Triforce of Power",
-        name: "Gannondorf",
-        age: 48
-      }
-    ],
-    showPersons: true
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+    this.state = {
+      persons: [
+        {
+          id: "Triforce of Courage",
+          name: "Link",
+          age: 16
+        },
+        {
+          id: "Triface of Wisdom",
+          name: "Zelda",
+          age: 17
+        },
+        {
+          id: "Triforce of Power",
+          name: "Gannondorf",
+          age: 48
+        }
+      ],
+      showPersons: true
+    }
   }
+
+  static getDerivedStateFromProps(props,state) {
+    console.log('[App.js] getDerivedStateFromProps',props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+
+
 
   deletePerson = (index) => {
     // const persons = this.state.persons; <- BAD way of doing this as it's a referenec pointer and you are modifying the oringal data. You want to create a copy of the array instead of pointing it to the same reference point as the original data.
@@ -46,10 +60,10 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render');
     let personComponents = null;
 
     if (!this.state.showPersons) {
-
       personComponents = (
         <Persons
           persons={this.state.persons}
@@ -62,6 +76,7 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Cockpit
+          AppTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.showPersons} />

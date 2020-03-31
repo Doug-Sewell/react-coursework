@@ -20,11 +20,10 @@ const cockpit = (props) => {
 
     return (
         <div className = {classes.Cockpit}>
-            <h1>React application</h1>
+            <h1>{props.AppTitle}</h1>
             <p className={assignedClasses.join(' ')}>Some dynamic text!!!!</p>
             <button
-                class={btnClass}
-                alt={props.showPersons}
+                className={btnClass}
                 onClick={props.clicked}>Toggle names</button>
         </div>
     )
