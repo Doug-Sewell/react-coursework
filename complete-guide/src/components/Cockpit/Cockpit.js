@@ -1,7 +1,31 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from './cockpit.module.css';
 
-const cockpit = (props) => {
+const Cockpit = (props) => {
+
+
+    useEffect(() => {
+      console.log('[Cockpit.js] useEffect');
+      //HTTP request....
+
+      //Combines functionality of componentDidMount and componentDidUpdate which are lifecycle methods in class based components.
+    
+      setTimeout(() => {
+        alert('Saved data to cloud!');
+      },1000)
+      return () => {
+        console.log('[Cockpit.js] cleanup work in UseEffect');
+      };
+    },[]); // By adding useEffect with an empty array as the second argument, it will only run once. Otherwise, you can add the data as values that will have useEffect only run if that data is changed. For example, adding props.persons
+
+
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd UseEffect');
+    }
+  });
+
 
     const assignedClasses = [];
     let btnClass = '';
@@ -29,4 +53,4 @@ const cockpit = (props) => {
     )
 }
 
-export default cockpit;
+export default Cockpit;
