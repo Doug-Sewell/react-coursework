@@ -28,7 +28,8 @@ class App extends Component {
         }
       ],
       showPersons: true,
-      showCockpit: true
+      showCockpit: true,
+      changeCounter: 0
     }
   }
 
@@ -63,7 +64,10 @@ class App extends Component {
     const persons = [...this.state.persons];//Creates a copy of the data.
     const personID = persons.findIndex(p => p.id === id); //Finds the index of the element being updated in the state.
     persons[personID].name = event.target.value; //Updates the copied state's data.
-    this.setState({ persons }); //Replaces the old state with the new state. Using ES6 since persons is the name of the key and the value is the same name since it's the variable here.
+    this.setState((prevState, props) => {
+      return { persons, 
+              changeCounter: prevState.changeCounter + 1 }
+    }); //Replaces the old state with the new state. Using ES6 since persons is the name of the key and the value is the same name since it's the variable here.
   }
 
   showPersons = () => {
