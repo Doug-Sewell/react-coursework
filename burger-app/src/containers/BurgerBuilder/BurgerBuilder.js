@@ -18,6 +18,14 @@ class BurgerBuilder extends Component {
         }
     }
 
+    addIngredientHandler = (type) => {
+        
+    }
+
+    removeIngredient = (type) => {
+
+    }
+
     render() {
         return (
             <Aux>
