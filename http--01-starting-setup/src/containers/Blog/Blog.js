@@ -17,13 +17,23 @@ class Blog extends Component {
         Axios.get('https://jsonplaceholder.typicode.com/posts')
             .then(response => {
                 console.log(response);
-                this.setState({posts: response.data});
+                const posts = response.data.slice(0,4);
+                const updatedPosts = posts.map(post => {
+                    return {
+                        ...post,
+                        author:'Max'
+                    }
+                });
+                this.setState({posts: updatedPosts});
             });
     }
     
     render () {
 
-        const posts = this.state.posts.map(post => <Post title={post.title} key={post.id} />);
+        const posts = this.state.posts.map(post => <Post 
+                                            title={post.title} 
+                                            key={post.id}
+                                            author={post.author} />);
 
         return (
             <div>
