@@ -28,5 +28,5 @@ axios.interceptors.response.use(response => {
 });
 
 
-ReactDOM.render( <App />, document.getElementById( 'root' ) );
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
