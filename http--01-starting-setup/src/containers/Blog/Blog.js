@@ -3,7 +3,7 @@ import './Blog.css';
 import Posts from './Posts/Posts';
 import NewPost from '../../containers/Blog/NewPost/NewPost';
 
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 
 
 class Blog extends Component {
@@ -15,12 +15,18 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to={{
+                            <li><NavLink 
+                            exact 
+                            to="/"
+                            activeStyle={{
+                                color:'#fa923f',
+                                textDecoration:'underline'
+                            }}>Home</NavLink></li>
+                            <li><NavLink to={{
                                 pathname: '/new-post',
                                 hash:'#submit',
                                 search:'?quick-submit=true'
-                            }}>New Post</Link></li>
+                            }}>New Post</NavLink></li>
                         </ul>
                     </nav>
                 </header>
